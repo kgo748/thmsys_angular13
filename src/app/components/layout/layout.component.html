@@ -1,0 +1,137 @@
+<nz-layout class="layout-wrap">
+  <nz-header>
+    来个大大的标题
+  </nz-header>
+  <nz-layout>
+    <nz-sider [nzWidth]="isCollapsed ? '80px' : '240px'">
+      <div class="wrapper">
+        <button nz-button nzType="primary" (click)="toggleCollapsed()">
+          <i nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </button>
+        <ul nz-menu nzMode="inline" nzTheme="light" [nzInlineCollapsed]="isCollapsed">
+          <li
+            nz-menu-item
+            nz-tooltip
+            nzTooltipPlacement="right"
+            nzTooltipTitle="isCollapsed ? 'Navigation One' : ''"
+            nzSelected
+          >
+            <a [routerLink]="[ '/layout/home' ]">
+              <i nz-icon nzType="home"></i>
+              <span>首页</span>
+            </a>
+          </li>
+          <li nz-menu-item>
+            <a [routerLink]="[ '/layout/map' ]">
+              <i nz-icon nzType="global"></i>
+              <span>地图</span>
+            </a>
+          </li>
+          <!-- echarts -->
+          <li nz-submenu nzTitle="VOC模块" nzIcon="appstore">
+            <ul>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/6' ]">Option 6</a>
+              </li>
+              <li nz-submenu nzTitle="数据查询">
+                <ul>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/voc' ]">VOC</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/daydata' ]">日数据</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/Ekma' ]">Ekma</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/VocsNOxO38Day' ]">VocsNOxO38Day</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/TVocsHourGroupM' ]">TVocsHourGroupM</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/TVocsHourGroupMComplete' ]">测试版TVocsHourGroupMComplete</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/TVocsTop' ]">TVocsTop</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/VocsNOxHour' ]">VocsNOxHour</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li nz-submenu nzTitle="Navigation Three" nzIcon="setting">
+            <ul>
+              <li nz-menu-item>Option 9</li>
+            </ul>
+          </li>
+          <!-- g2 -->
+          <li nz-submenu nzTitle="g2" nzIcon="appstore">
+            <ul>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/6' ]">Option 6</a>
+              </li>
+              <li nz-submenu nzTitle="数据查询">
+                <ul>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/AreaChart' ]">AreaChart</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/LineChart' ]">LineChart</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- Viser -->
+          <li nz-submenu nzTitle="Viser" nzIcon="appstore">
+            <ul>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/6' ]">Option 6</a>
+              </li>
+              <li nz-submenu nzTitle="数据查询">
+                <ul>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/ViserAreaChart' ]">ViserAreaChart</a>
+                  </li>
+                  <li nz-menu-item>
+                    <a [routerLink]="[ '/layout/ViserLineChart' ]">ViserLineChart</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- Auth 权限管理 -->
+          <li nz-submenu nzTitle="权限管理" nzIcon="appstore">
+            <ul>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/testuser' ]">测试页面</a>
+              </li>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/user' ]">用户管理</a>
+              </li>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/role' ]">角色管理</a>
+              </li>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/auth' ]">权限管理</a>
+              </li>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/site' ]">站点管理</a>
+              </li>
+              <li nz-menu-item>
+                <a [routerLink]="[ '/layout/compound' ]">物质管理</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nz-sider>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

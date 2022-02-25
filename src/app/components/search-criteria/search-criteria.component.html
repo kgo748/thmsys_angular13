@@ -1,0 +1,12 @@
+<div nz-row>
+  <nz-tree-select
+    style="width: 250px"
+    [nzNodes]="nodes"
+    nzPlaceHolder="请选择一个站点"
+    [(ngModel)]="value"
+    nzShowLine
+    nzDefaultExpandAll="true"
+  ></nz-tree-select>
+  <nz-range-picker [(ngModel)]="date" nzAllowClear="false"></nz-range-picker>
+  <button nz-button nzType="primary" (click)="doSearch()">查询</button>
+</div>

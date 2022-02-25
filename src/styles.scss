@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+/// 使用antd的全部样式，并在angualr.json 的style中引入相应的样式
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+html,body, app-root{
+  width: 100%;
+  height: 100%;
+  font: 16px '微软雅黑';
+  overflow: auto;
+}

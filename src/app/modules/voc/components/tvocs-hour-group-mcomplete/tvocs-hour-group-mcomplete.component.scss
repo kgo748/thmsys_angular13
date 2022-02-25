@@ -1,0 +1,21 @@
+nz-card {
+  position: relative;
+  .breadcrumb-box {
+    position: fixed;
+    /* position: sticky;
+    top: 0;
+    left: 0; */
+    z-index: 99;
+    background-color: #50A2EE;
+  }
+}
+.tree-select-box {
+  margin-top: 32px;
+}
+.demo-chart {
+  min-height: 600px;
+}
+nz-alert {
+  margin-top: 20px;
+  text-align: center;
+}

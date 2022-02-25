@@ -1,0 +1,11 @@
+<nz-card>
+  <app-search-criteria (outer)="doSearch($event)"></app-search-criteria>
+  <!-- 图表 -->
+  <nz-divider nzPlain nzText="折线和饼图" nzOrientation="left"></nz-divider>
+  <ng-container *ngIf="isShowChart; else elseTemplate">
+    <app-echarts [chartOption]="chartOption" [chartDataDesc]="chartDataDesc"></app-echarts>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <nz-alert nzType="warning" [nzMessage]="chartDataDesc"></nz-alert>
+  </ng-template>
+</nz-card>

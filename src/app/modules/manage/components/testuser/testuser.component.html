@@ -1,0 +1,78 @@
+<nz-card nzTitle="角色管理" [nzExtra]="extraTemplate">
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th>昵称</th>
+        <th>年龄</th>
+        <th>地址</th>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>确认密码</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.nickname }}</td>
+        <td>{{ data.age }}</td>
+        <td>{{ data.address }}</td>
+        <td>{{ data.username }}</td>
+        <td>{{ data.password }}</td>
+        <td>{{ data.confirmPassword }}</td>
+        <td>
+          <button nz-button nzType="primary" (click)="openEditRoleModal(data)">编辑角色</button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <!-- Popconfirm气泡确认框;嵌套使用 -->
+          <button nz-button nzType="primary" nzDanger>
+            <a nz-popconfirm nzPopconfirmTitle="确定删除吗?" nzPopconfirmPlacement="bottom" (nzOnCancel)="cancel()"
+              (nzOnConfirm)="confirm(data)">
+              删除角色
+            </a></button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+<ng-template #extraTemplate>
+  <button nz-button nzType="primary" (click)="openAddRoleModal()">新增角色</button>
+</ng-template>
+<!-- 新增和编辑的对话框 -->
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="addOrEdit==='add'? '新增角色': '编辑角色'" (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()" [nzOkLoading]="isOkLoading">
+  <!-- *nzModalContent>Modal 必需添加在Modal下第一级的开始标签里，否则内容无法呈现 -->
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" *nzModalContent>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Username</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+        <input nz-input formControlName="userName" placeholder="async validate try to write JasonWood" />
+        <ng-template #userErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Please input your username!</ng-container>
+          <ng-container *ngIf="control.hasError('duplicated')">The username is redundant!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Password</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your password!">
+        <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Confirm Password</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="passwordErrorTpl">
+        <input nz-input type="password" formControlName="confirm" placeholder="confirm your password" />
+        <ng-template #passwordErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Please confirm your password!</ng-container>
+          <ng-container *ngIf="control.hasError('confirm')">Password is inconsistent!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="12">
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+        <button nz-button (click)="resetForm($event)">Reset</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+

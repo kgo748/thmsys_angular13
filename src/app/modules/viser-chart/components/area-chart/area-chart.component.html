@@ -1,0 +1,34 @@
+<nz-card>
+  <div nz-row class="tree-select-box">
+    <nz-space [nzSize]="size">
+      <nz-tree-select *nzSpaceItem style="width: 250px" [nzNodes]="nodes" nzPlaceHolder="请选择一个站点" [(ngModel)]="value"
+        nzShowLine nzDefaultExpandAll="true"></nz-tree-select>
+      <nz-range-picker *nzSpaceItem [(ngModel)]="date" nzAllowClear="false"></nz-range-picker>
+      <button *nzSpaceItem nz-button nzType="primary">查询</button>
+    </nz-space>
+  </div>
+  <!-- 图表 -->
+  <div>
+    <!-- <v-chart [forceFit]="forceFit" [height]="height" [scale]="scale">
+      <v-tooltip [crosshairs]="tooltipOpts.crosshairs"></v-tooltip>
+      <v-axis></v-axis>
+      <v-view [data]="data">
+        <v-area position="time*temperature" [tooltip]="false"></v-area>
+      </v-view>
+      <v-view [data]="averages">
+        <v-axis [show]="false"></v-axis>
+        <v-line position="time*temperature" [size]="2"></v-line>
+        <v-point position="time*temperature" [size]="4" [style]="pointStyle" shape="circle"></v-point>
+      </v-view>
+    </v-chart> -->
+  </div>
+  <!-- 这里用数据来判断 -->
+  <!-- <ng-container *ngIf="data.length; else elseTemplate">
+    <nz-divider nzPlain nzText="折线和饼图方式1" nzOrientation="left"></nz-divider>
+    <div id="container"></div>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <nz-alert nzType="warning" [nzMessage]="chartDataDesc"></nz-alert>
+  </ng-template> -->
+</nz-card>
+

@@ -1,0 +1,28 @@
+<div class="login-form-wrap">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <h1>用户登录</h1>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入用户名!">
+        <nz-input-group [nzSize]="'large'" nzPrefixIcon="user">
+          <input [placeholder]="'没有账号密码直接登陆'" type="text" nz-input formControlName="userName" placeholder="用户名"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="请输入密码!">
+        <nz-input-group [nzSize]="'large'" nzPrefixIcon="lock">
+          <input autocomplete="on" [placeholder]="'no username and password,just login'" type="password" nz-input formControlName="password" placeholder="密码"/>
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <div nz-row class="login-form-margin">
+      <div nz-col [nzSpan]="12">
+        <label nz-checkbox formControlName="remember">
+          <span>自动登录</span>
+        </label>
+      </div>
+    </div>
+    <button nz-button nzSize="large" class="login-form-button login-form-margin" [nzType]="'primary'">登 录</button>
+  </form>
+</div>

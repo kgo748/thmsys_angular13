@@ -1,0 +1,44 @@
+<nz-card>
+  <div nz-row class="breadcrumb-box">
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>VOC模块</nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a>数据查询</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>TVocsHourGroupMComplete</nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </div>
+
+  <div nz-row class="tree-select-box">
+    <nz-space [nzSize]="size">
+      <nz-tree-select
+        *nzSpaceItem
+        style="width: 250px"
+        [nzNodes]="nodes"
+        nzPlaceHolder="请选择一个站点"
+        [(ngModel)]="value"
+        nzShowLine
+        nzDefaultExpandAll="true"
+      ></nz-tree-select>
+
+      <nz-range-picker *nzSpaceItem [(ngModel)]="date" nzAllowClear="false"></nz-range-picker>
+      <button *nzSpaceItem nz-button nzType="primary" (click)="doSearch()">查询</button>
+    </nz-space>
+  </div>
+
+
+  <!-- 图表；方式2推荐 -->
+  <ng-container *ngIf="isShowChart; else elseTemplate">
+    <nz-divider nzPlain nzText="折线和饼图方式1" nzOrientation="left"></nz-divider>
+    <div #chartBox id="chartBox" style="min-height: 600px;"></div>
+    <nz-divider nzPlain nzText="折线和饼图方式2" nzOrientation="left"></nz-divider>
+    <div echarts [options]="chartOption2" class="demo-chart"></div>
+    <nz-divider nzPlain nzText="折线和饼图方式3" nzOrientation="left"></nz-divider>
+    <div echarts [options]="chartOption3" class="demo-chart" (chartInit)="onChartInit3($event)"></div>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <nz-alert nzType="warning" [nzMessage]="chartDataDesc"></nz-alert>
+  </ng-template>
+</nz-card>
+
+

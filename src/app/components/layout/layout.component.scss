@@ -1,0 +1,26 @@
+.layout-wrap {
+  height: 100%;
+  overflow: hidden;
+  nz-header{
+    background-color: #1890FF;
+  }
+  nz-sider{
+    overflow: auto;
+    position: relative;
+    background-color: #FFFFFF;
+    button {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      border: none;
+      background-color: #5F9DD6;
+      z-index: 99;
+    }
+  }
+  nz-content {
+    overflow: auto;
+    background-color: #FFFFFF;
+  }
+}

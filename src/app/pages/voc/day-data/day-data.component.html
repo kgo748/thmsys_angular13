@@ -1,0 +1,45 @@
+<nz-card>
+  <div nz-row>
+      <nz-tree-select
+        style="width: 250px"
+        [nzNodes]="nodes"
+        nzPlaceHolder="请选择一个站点"
+        [(ngModel)]="value"
+        (ngModelChange)="onChange($event)"
+        nzShowLine
+        nzDefaultExpandAll="true"
+      ></nz-tree-select>
+      <nz-range-picker [(ngModel)]="date" (ngModelChange)="onChangeTime($event)" nzAllowClear="false"></nz-range-picker>
+      <button nz-button nzType="primary" (click)="doSearch()">查询</button>
+  </div>
+  <!-- table表格 -->
+  <nz-divider nzPlain nzText="表格数据" nzOrientation="left"></nz-divider>
+  <ng-container *ngIf="tableData.length>0; else elseTemplate">
+    <nz-table #basicTable [nzPageSize]="10" nzShowPagination [nzData]="tableData">
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>NOx</th>
+          <th>TVocs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.DataTime }}</td>
+          <td>{{ data.NOx }}</td>
+          <td>{{ data.TVocs }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <nz-alert nzType="warning" [nzMessage]="tableDataDesc"></nz-alert>
+  </ng-template>
+
+  <!-- 折线数据 -->
+  <nz-divider nzPlain nzText="测试折线数据" nzOrientation="left"></nz-divider>
+  <div echarts [options]="chartOption1" class="demo-chart"></div>
+  <nz-divider nzPlain nzText="折线数据" nzOrientation="left"></nz-divider>
+  <div echarts [options]="chartOption2" class="demo-chart"></div>
+
+</nz-card>

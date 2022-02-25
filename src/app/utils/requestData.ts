@@ -1,0 +1,28 @@
+// HttpHeaders当作一个服务
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export const baseUrl = 'http://221.232.79.35:5029/';
+
+/// 封装返回rxjs类型的数据请求 requestRxjsData
+// 此项目就get和post两个请求就搞定了
+export const requestRxjsData = (http: HttpClient, url: string, method: string='get', params: any={}) => {
+  return new Observable<any>((observer) => {
+    if(method.toLowerCase()==='get'){
+      /// 注意这里的get请求参数对象外面还得包裹一层对象
+      http.get(baseUrl+url, {params}).subscribe((response: any) => {
+        observer.next(response);
+      });
+    }else {
+      // 手动设置请求数据的类型
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json;charset=utf-8'
+        })
+      };
+      http.post(baseUrl+url, params, httpOptions).subscribe((response: any) => {
+        observer.next(response);
+      });
+    }
+  });
+}

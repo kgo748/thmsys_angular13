@@ -1,0 +1,36 @@
+<nz-card>
+  <app-search-criteria (outer)="doSearch($event)"></app-search-criteria>
+  <!-- table表格 -->
+  <nz-divider nzPlain nzText="表格数据" nzOrientation="left"></nz-divider>
+  <ng-container *ngIf="tableData.length>0; else elseTemplate">
+    <nz-table #basicTable [nzPageSize]="10" nzShowPagination [nzData]="tableData">
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>NOx</th>
+          <th>TVocs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.DataTime }}</td>
+          <td>{{ data.NOx }}</td>
+          <td>{{ data.TVocs }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <nz-alert nzType="warning" [nzMessage]="tableDataDesc"></nz-alert>
+  </ng-template>
+  <!-- 图表 -->
+  <nz-divider nzPlain nzText="折线和饼图" nzOrientation="left"></nz-divider>
+  <ng-container *ngIf="isShowChart; else elseTemplate">
+    <app-echarts [chartOption]="chartOption" [chartDataDesc]="chartDataDesc"></app-echarts>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <nz-alert nzType="warning" [nzMessage]="chartDataDesc"></nz-alert>
+  </ng-template>
+</nz-card>
+
+

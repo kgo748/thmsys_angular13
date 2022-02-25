@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!--
+    js递归遍历树形json_js原型与拷贝那些事儿；
+    深拷贝的实现
+   -->
+  <script>
+    const obj = [
+      {
+        title: 'parent 1',
+        key: '100',
+        children: [
+          {
+            title: 'parent 1-0',
+            key: '1001',
+            children: [
+              { title: 'leaf 1-0-0', key: '10010', isLeaf: true },
+              { title: 'leaf 1-0-1', key: '10011', isLeaf: true }
+            ]
+          },
+          {
+            title: 'parent 1-1',
+            key: '1002',
+            children: [{ title: 'leaf 1-1-0', key: '10020', isLeaf: true }]
+          }
+        ]
+      }
+    ]
+
+    console.log(copyObj(obj));
+
+    function copyObj(obj) {
+      var cloneObj;
+      //当输入数据为简单数据类型时直接复制
+      if (obj && typeof obj !== 'object') { cloneObj = obj; }
+      //当输入数据为对象或数组时
+      else if (obj && typeof obj === 'object') {
+        //检测输入数据是数组还是对象
+        cloneObj = Array.isArray(obj) ? [] : {};
+        for (let key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            if (obj[key] && typeof obj[key] === 'object') {
+              //若当前元素类型为对象时，递归调用
+              cloneObj[key] = copyObj(obj[key]);
+            } else {
+              //若当前元素类型为基本数据类型
+              if (key === 'title') {
+                cloneObj['display'] = copyObj(obj[key]);
+              } else if (key === 'key') {
+                cloneObj['value'] = copyObj(obj[key]);
+              } else {
+                cloneObj[key] = obj[key];
+              }
+            }
+          }
+        }
+      }
+      return cloneObj;
+    }
+
+  </script>
+</body>
+
+</html>
