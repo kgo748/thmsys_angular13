@@ -1,5 +1,6 @@
 环境：
-  node.v.16，npm.v.6.14.15 有些依赖需要8；
+  node.v.16，npm.v.8.3.1 有些依赖需要8；
+项目运行前其对应的脚手架需已全局首次安装。
 
 angular.json 文件的styles里引用了全局样式文件 style.scss;
 注意创建的模块或服务等名称不要和第三方包里需要引入的模块同名，否则声明或使用的时候会冲突报错。
@@ -86,18 +87,68 @@ Viser Viser-Graph 为 React, Vue 和 Angular 提供了 3 个不同的分发版�
         "node_modules/@antv/g2/build/g2.js"
       ]
 
-安装依赖时报错：
-  This version of npm is compatible with lockfileVersion@1, but package-lock.json was generated for lockfileVersion@2
-  根据这个报错信息可以得出，目前你电脑npm的版本是适合于lockfileVersion@1的，但是你的package-lock.json是源于lockfileVersion@2的。
-    因为代码中使用的某个插件只能用特定版本的npm下载，所以会报错导致npm install失败。这时就需要升级一下npm。
-    npm install -g npm
-  升级完npm版本之后，即可install成功；有的错误可能是因为npm版本太高导致的。。。比如这个错
+npm install 安装依赖时报错：
+  1.This version of npm is compatible with lockfileVersion@1, but package-lock.json was generated for lockfileVersion@2
+  根据这个报错信息可以得出，目前你电脑npm的版本是适合于lockfileVersion@1的，但是你的package-lock.json是源于lockfileVersion@2的；
+    因为代码中使用的某个插件只能用特定版本的npm下载，所以会报错导致npm install失败。这时就需要升级一下npm，
+      cmd>npm install -g npm
+  升级完npm版本之后，即可 npm install 成功；有的错误可能是因为npm版本太高导致的。。。比如这个错
     npm error code ERESOLVE
     npm error ERESOLVE unable to resolve dependency tree
-    npm error
-    npm error Found: [1mhtml-webpack-plugin[22m@[1m4.0.0-alpha[22m[2m[22m
-    这时需要降级，降级方法 cmd>npm install npm@6 -g
+    这时需要降级，降级方法:
+      cmd>npm install npm@6 -g
+  2.npm ERR! ERESOLVE unable to resolve dependency tree
+    这是npm版本兼容导致的；
+    当团队项目中，团队成员的npm包管理工具版本不一致时执行npm install报此错；
+    npm -v查看版本信息：7.x与6.x之间的兼容问题；
+    解决方案：
+      一：升级或降级npm版本，保持一致 npm install -g npm@x.x.x
+      二：npm install --legacy-peer-deps（推荐，解决后之后正常命令安装即可）
+
+vscode npm install 安装依赖时报错：
+  因为在此系统上禁止运行脚本；
+  1.以管理员身份打开cmd，再cd到要下载依赖的文件夹里进行npm install下载，不过过程比较繁琐。
+  2.以管理员身份打开命令行，输入：
+    cmd>npm install --unsafe-perm=true --allow-root  
+  3.解禁权限（推荐）
+    3.1解决方法：
+      1. 以管理员身份运行vscode或 window.powershell（注意不是cmd窗口 ）;
+      2. 执行：get-ExecutionPolicy，显示Restricted，表示状态是禁止的;
+      3. 执行：set-ExecutionPolicy，会提示输入参数；
+      4. 输入参数 RemoteSigned，会提示进行 选择： 输入：Y
+      5. 这时再执行 get-ExecutionPolicy，就显示RemoteSigned;
+      这时就可在vscode运行脚本了；
+    3.2解禁vscode的权限:
+      右键打开vscode，在 兼容性选项 里进行设置，以管理员身份运行程序（勾上此选项）。之后再次运行npm install
+
+
+    科普window.powershell 知识点：
+      Windows给powershell设定了一个叫“执行策略”的东西。
+      为什么要弄这么一个执行策略呢，因为powershell能做的事情太多了，为了避免一些恶意脚本直接运行，
+      一般家用的windows系统默认将执行策略设置成了“Restricted”，即受限制的。
+
+npm ERR! The operation was rejected by your operating system.
+npm ERR! It's possible that the file was already in use (by a text editor or antivirus),
+npm ERR! or that you lack permissions to access it.
+npm ERR!
+npm ERR! If you believe this might be a permissions issue, please double-check the
+npm ERR! permissions of the file and its containing directories, or try running
+npm ERR! the command again as root/Administrator.
+... ...
+  也是权限的问题，以管理员身份执行命令即可解决？？？；
+  也可能是win10防火墙的问题：
+	  In windows10 I disabled the windows defender / windows security ==> realtime protection and try again npm install command and it worked
+	难搞呀！！！
+
+
 
 interface 里是用分号还是逗号呢?
 
 cmd>npm install mockjs --save-dev
+
+
+
+
+
+
+
